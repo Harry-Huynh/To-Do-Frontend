@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -8,27 +9,29 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>To-Do App</title>
       </Head>
-      <SWRConfig
-        value={{
-          fetcher: async (url) => {
-            const res = await fetch(url);
+      <Layout>
+        <SWRConfig
+          value={{
+            fetcher: async (url) => {
+              const res = await fetch(url);
 
-            if (!res.ok) {
-              const error = new Error(
-                "An error occurred while fetching the data."
-              );
+              if (!res.ok) {
+                const error = new Error(
+                  "An error occurred while fetching the data."
+                );
 
-              error.info = await res.json();
-              error.status = res.status;
-              throw error;
-            }
+                error.info = await res.json();
+                error.status = res.status;
+                throw error;
+              }
 
-            return res.json();
-          },
-        }}
-      >
-        <Component {...pageProps} />
-      </SWRConfig>
+              return res.json();
+            },
+          }}
+        >
+          <Component {...pageProps} />
+        </SWRConfig>
+      </Layout>
     </>
   );
 }

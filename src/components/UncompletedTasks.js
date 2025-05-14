@@ -35,7 +35,7 @@ export default function UncompletedTasks({ name, id }) {
       className="list-item text-2xl relative mb-2 before:absolute before:top-2.5 before:left-1 before:h-10 before:w-7 before:bg-[url('/unchecked.svg')] before:bg-contain before:bg-no-repeat before:content-[''] border-3 pl-8 pt-2 pr-2 pb-0 rounded-lg cursor-pointer"
       onClick={() => handleComplete(id)}
     >
-      <span className="inline-block overflow-hidden text-ellipsis max-w-[150px] sm:max-w-[250px] md:max-w-[350px] lg:max-w-[400px] xl:max-w-[900px]">
+      <span className="inline-block overflow-hidden text-ellipsis ml-1 max-w-[150px] sm:max-w-[250px] md:max-w-[350px] lg:max-w-[400px] xl:max-w-[900px]">
         {name}
       </span>
 
