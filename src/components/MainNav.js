@@ -2,12 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { IoLogOut } from "react-icons/io5";
+import { getToken, removeToken } from "@/lib/authenticate";
+import { useRouter } from "next/router";
 
 export default function MainNav() {
   const [shown, setShown] = useState(true);
   const [lastPosition, setLastPosition] = useState(0);
   const [backgroundTransparent, setBackgroundTransparent] = useState(true);
   const [expanded, setExpanded] = useState(false);
+  const router = useRouter();
+
+  const token = getToken();
 
   useEffect(() => {
     function handleScroll() {
@@ -32,6 +37,11 @@ export default function MainNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastPosition]);
 
+  function handleLogout() {
+    removeToken();
+    router.push("/login");
+  }
+
   return (
     <nav
       className={`w-full fixed top-0 left-0 transition-all duration-300 ${
@@ -42,7 +52,7 @@ export default function MainNav() {
     >
       <div className="navbar py-0">
         <div className="navbar-start relative">
-          <div className="dropdown">
+          <div className="dropdown" onClick={() => setExpanded(!expanded)}>
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,24 +70,40 @@ export default function MainNav() {
                 />{" "}
               </svg>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content rounded-box z-100 mt-3 w-fit p-2 shadow bg-white"
-            >
-              <li>
-                <Link href="/register" className="text-lg">
-                  Register
-                </Link>
-              </li>
-              <li>
-                <Link href="/login" className="text-lg">
-                  Log In
-                </Link>
-              </li>
-              <li>
-                <span className="text-lg">Logout</span>
-              </li>
-            </ul>
+            {expanded && (
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content rounded-box z-100 mt-3 w-fit p-2 shadow bg-white"
+              >
+                {!token && (
+                  <>
+                    <li onClick={() => setExpanded(false)}>
+                      <Link href="/register" className="text-lg">
+                        Register
+                      </Link>
+                    </li>
+                    <li onClick={() => setExpanded(false)}>
+                      <Link href="/login" className="text-lg">
+                        Sign In
+                      </Link>
+                    </li>
+                  </>
+                )}
+
+                {token && (
+                  <li
+                    onClick={() => {
+                      setExpanded(false);
+                    }}
+                  >
+                    <span className="text-lg" onClick={handleLogout}>
+                      <IoLogOut />
+                      Sign out
+                    </span>
+                  </li>
+                )}
+              </ul>
+            )}
           </div>
 
           <Image
@@ -92,15 +118,28 @@ export default function MainNav() {
         <div className="navbar-end">
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-xl">
-              <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
-                <Link href="/register">Register</Link>
-              </li>
-              <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
-                <Link href="/login">Log In</Link>
-              </li>
-              <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
-                <span>Log Out</span>
-              </li>
+              {!token && (
+                <>
+                  <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+                    <Link href="/register">Register</Link>
+                  </li>
+                  <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+                    <Link href="/login">Sign In</Link>
+                  </li>
+                </>
+              )}
+
+              {token && (
+                <li
+                  className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1"
+                  onClick={handleLogout}
+                >
+                  <span>
+                    <IoLogOut className="inline-block -mr-1" />
+                    Sign out
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const taskAtom = atom([]);
+export const taskAtom = atom();

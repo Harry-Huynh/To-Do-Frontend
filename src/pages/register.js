@@ -45,7 +45,7 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl flex justify-center">
+    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl flex justify-center transition-all duration-300">
       <div className="w-full max-w-xl p-10">
         <h1 className="text-center font-bold mb-10 text-4xl">
           Create an Account:

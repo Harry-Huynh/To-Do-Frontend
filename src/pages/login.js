@@ -6,12 +6,16 @@ import { useState } from "react";
 import Loading from "@/components/Loading";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { taskAtom } from "@/store";
+import { useAtom } from "jotai";
+import { getTasks } from "@/lib/userData";
 
 export default function Register() {
   const router = useRouter();
   const [warningMessage, setWarningMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [tasks, setTasks] = useAtom(taskAtom);
   const {
     register,
     handleSubmit,
@@ -24,11 +28,15 @@ export default function Register() {
     },
   });
 
+  async function loadData() {
+    setTasks(await getTasks());
+  }
+
   async function handleLogin(data) {
     setLoading(true);
     try {
       await authenticateUser(data.userName, data.password);
-
+      await loadData();
       reset({
         userName: "",
         password: "",
@@ -42,7 +50,7 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl flex justify-center">
+    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl flex justify-center transition-all duration-300">
       <div className="w-full max-w-xl p-10">
         <h1 className="text-center font-bold mb-10 text-4xl">Sign In</h1>
 

@@ -3,7 +3,7 @@ import { getToken } from "./authenticate";
 export async function getTasks() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tasks`, {
     method: "GET",
-    headerS: {
+    headers: {
       Authorization: `JWT ${getToken()}`,
     },
   });

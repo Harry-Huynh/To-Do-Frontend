@@ -1,23 +1,29 @@
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { taskAtom } from "../store";
+import { updateTask, deleteTask } from "@/lib/userData";
 
 export default function CompletedTasks({ name, id }) {
   const [tasks, setTasks] = useAtom(taskAtom);
 
-  function handleUncheck(id) {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === id) {
-        return { ...task, status: "uncompleted" };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
+  async function handleUncheck(id) {
+    let updatedTask = tasks.find((task) => task._id === id);
+
+    updatedTask.status = "uncompleted";
+
+    setTasks(
+      await updateTask(
+        updatedTask._id,
+        updatedTask.name,
+        updatedTask.status,
+        updatedTask.edit
+      )
+    );
+    console.log(tasks);
   }
 
-  function handleDelete(id) {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+  async function handleDelete(id) {
+    setTasks(await deleteTask(id));
   }
 
   return (

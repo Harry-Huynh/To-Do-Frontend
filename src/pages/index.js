@@ -5,6 +5,7 @@ import TaskContainer from "@/components/TaskContainer";
 import { useAtom } from "jotai";
 import { taskAtom } from "@/store";
 import { useState, useEffect } from "react";
+import { updateTask, addTask } from "@/lib/userData";
 
 export default function Home() {
   const [tasks, setTasks] = useAtom(taskAtom);
@@ -31,29 +32,30 @@ export default function Home() {
     }
 
     if (editingTask) {
-      const updatedTasks = tasks.map((task) =>
-        task.id === editingTask.id
-          ? { ...task, name: taskInput.trim(), edit: false }
-          : task
+      const updatedTask = {
+        ...editingTask,
+        name: taskInput.trim(),
+        edit: false,
+      };
+
+      setTasks(
+        await updateTask(
+          updatedTask._id,
+          updatedTask.name,
+          updatedTask.status,
+          updatedTask.edit
+        )
       );
-      await setTasks(updatedTasks);
+
+      setEditingTask(null);
     } else {
-      await setTasks([
-        ...tasks,
-        {
-          id: tasks.length + 1,
-          status: "uncompleted",
-          name: taskInput.trim(),
-          edit: false,
-        },
-      ]);
+      setTasks(await addTask(taskInput.trim(), "uncompleted", false));
     }
     setTaskInput("");
-    console.log(tasks);
   }
 
   return (
-    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl">
+    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl transition-all duration-300">
       <div className="p-15">
         <h1 className="text-center font-bold">To-Do List App</h1>
 
@@ -63,7 +65,7 @@ export default function Home() {
             <div className="flex gap-4 xl:flex-nowrap flex-wrap justify-center">
               <input
                 type="text"
-                className="input border-3 rounded-[10px] grow lg:w-full max-w-[700px] h-12 text-xl"
+                className="input border-3 rounded-[10px] grow lg:w-full max-w-[600px] h-12 text-xl"
                 placeholder="Add a task"
                 value={taskInput}
                 onChange={(e) => setTaskInput(e.target.value)}
@@ -71,47 +73,37 @@ export default function Home() {
 
               {editingTask ? (
                 <>
-                  <Button
-                    type="submit"
-                    name="Add Task"
-                    className="w-full shrink"
-                    disabled={true}
-                  />
-                  <Button
-                    type="submit"
-                    name="Update Task"
-                    className="w-full shrink"
-                    disabled={false}
-                  />
+                  <Button type="submit" name="Add Task" disabled={true} />
+                  <Button type="submit" name="Update Task" disabled={false} />
                   <Button
                     type="button"
                     name="Cancel"
-                    className="w-fit shrink"
                     disabled={false}
-                    onClick={() => {
-                      const resetTasks = tasks.map((task) =>
-                        task.id === editingTask.id
-                          ? { ...task, edit: false }
-                          : task
+                    onClick={async () => {
+                      let updatedTask = tasks.find(
+                        (task) => task._id === editingTask._id
                       );
-                      setTasks(resetTasks);
+
+                      updatedTask.edit = false;
+
+                      setTasks(
+                        await updateTask(
+                          updatedTask._id,
+                          updatedTask.name,
+                          updatedTask.status,
+                          updatedTask.edit
+                        )
+                      );
+
+                      setEditingTask(null);
+                      setTaskInput("");
                     }}
                   />
                 </>
               ) : (
                 <>
-                  <Button
-                    type="submit"
-                    name="Add Task"
-                    className="w-full shrink"
-                    disabled={false}
-                  />
-                  <Button
-                    type="submit"
-                    name="Update Task"
-                    className="w-full shrink"
-                    disabled={true}
-                  />
+                  <Button type="submit" name="Add Task" disabled={false} />
+                  <Button type="submit" name="Update Task" disabled={true} />
                 </>
               )}
             </div>
@@ -121,7 +113,7 @@ export default function Home() {
         {uncompletedTasks?.length > 0 && (
           <TaskContainer name="In Progress Tasks">
             {uncompletedTasks.map((task) => (
-              <UncompletedTasks name={task.name} key={task.id} id={task.id} />
+              <UncompletedTasks name={task.name} key={task._id} id={task._id} />
             ))}
           </TaskContainer>
         )}
@@ -129,7 +121,7 @@ export default function Home() {
         {completedTasks?.length > 0 && (
           <TaskContainer name="Completed Tasks">
             {completedTasks.map((task) => (
-              <CompletedTasks name={task.name} key={task.id} id={task.id} />
+              <CompletedTasks name={task.name} key={task._id} id={task._id} />
             ))}
           </TaskContainer>
         )}
