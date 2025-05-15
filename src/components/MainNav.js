@@ -52,59 +52,61 @@ export default function MainNav() {
     >
       <div className="navbar py-0">
         <div className="navbar-start relative">
-          <div className="dropdown" onClick={() => setExpanded(!expanded)}>
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            {expanded && (
-              <ul
+          {!token && (
+            <div className="dropdown" onClick={() => setExpanded(!expanded)}>
+              <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content rounded-box z-100 mt-3 w-fit p-2 shadow bg-white"
+                role="button"
+                className="btn btn-ghost lg:hidden"
               >
-                {!token && (
-                  <>
-                    <li onClick={() => setExpanded(false)}>
-                      <Link href="/register" className="text-lg">
-                        Register
-                      </Link>
-                    </li>
-                    <li onClick={() => setExpanded(false)}>
-                      <Link href="/login" className="text-lg">
-                        Sign In
-                      </Link>
-                    </li>
-                  </>
-                )}
-
-                {token && (
-                  <li
-                    onClick={() => {
-                      setExpanded(false);
-                    }}
-                  >
-                    <span className="text-lg" onClick={handleLogout}>
-                      <IoLogOut />
-                      Sign out
-                    </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {" "}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />{" "}
+                </svg>
+              </div>
+              {expanded && (
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content rounded-box z-100 mt-3 w-fit p-2 shadow bg-white rounded-xl"
+                >
+                  <li onClick={() => setExpanded(false)}>
+                    <Link href="/register" className="text-lg">
+                      Register
+                    </Link>
                   </li>
-                )}
-              </ul>
-            )}
-          </div>
+                  <li onClick={() => setExpanded(false)}>
+                    <Link href="/login" className="text-lg">
+                      Sign In
+                    </Link>
+                  </li>
+
+                  {token && (
+                    <li
+                      onClick={() => {
+                        setExpanded(false);
+                      }}
+                    >
+                      <span className="text-lg" onClick={handleLogout}>
+                        <IoLogOut />
+                        Sign out
+                      </span>
+                    </li>
+                  )}
+                </ul>
+              )}
+            </div>
+          )}
 
           <Image
             src="/favicon.ico"
@@ -115,21 +117,10 @@ export default function MainNav() {
           />
         </div>
 
-        <div className="navbar-end">
-          <div className="hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 text-xl">
-              {!token && (
-                <>
-                  <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
-                    <Link href="/register">Register</Link>
-                  </li>
-                  <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
-                    <Link href="/login">Sign In</Link>
-                  </li>
-                </>
-              )}
-
-              {token && (
+        {token && (
+          <div className="navbar-end">
+            <div className="flex">
+              <ul className="menu menu-horizontal px-1 text-xl">
                 <li
                   className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1"
                   onClick={handleLogout}
@@ -139,10 +130,25 @@ export default function MainNav() {
                     Sign out
                   </span>
                 </li>
-              )}
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
+
+        {!token && (
+          <div className="navbar-end">
+            <div className="hidden lg:flex">
+              <ul className="menu menu-horizontal px-1 text-xl">
+                <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+                  <Link href="/register">Register</Link>
+                </li>
+                <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+                  <Link href="/login">Sign In</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
