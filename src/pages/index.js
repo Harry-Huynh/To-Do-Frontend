@@ -65,7 +65,7 @@ export default function Home() {
             <div className="flex gap-4 xl:flex-nowrap flex-wrap justify-center">
               <input
                 type="text"
-                className="input border-3 rounded-[10px] grow lg:w-full max-w-[600px] h-12 text-xl"
+                className="input border-3 rounded-[10px] grow lg:w-full max-w-[700px] h-12 text-xl"
                 placeholder="Add a task"
                 value={taskInput}
                 onChange={(e) => setTaskInput(e.target.value)}
