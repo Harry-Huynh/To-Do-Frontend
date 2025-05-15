@@ -41,7 +41,7 @@ export async function authenticateUser(userName, password) {
 
   const data = await res.json();
 
-  if (data.status === 200) {
+  if (res.status === 200) {
     setToken(data.token);
     return true;
   } else {
@@ -64,7 +64,7 @@ export async function registerUser(userName, password, password2) {
 
   const data = res.json();
 
-  if (data.status === 200) {
+  if (res.status === 200) {
     return true;
   } else {
     throw new Error(data.message);
