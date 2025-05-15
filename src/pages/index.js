@@ -9,16 +9,19 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [tasks, setTasks] = useAtom(taskAtom);
   const [taskInput, setTaskInput] = useState("");
-  const editingTask = tasks.find((task) => task.edit);
-
-  const completedTask = tasks.filter((task) => task.status === "completed");
-  const uncompletedTask = tasks.filter((task) => task.status === "uncompleted");
+  const [editingTask, setEditingTask] = useState();
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [uncompletedTasks, setUncompletedTasks] = useState([]);
 
   useEffect(() => {
+    setEditingTask(tasks?.find((task) => task.edit));
+    setCompletedTasks(tasks?.filter((task) => task.status === "completed"));
+    setUncompletedTasks(tasks?.filter((task) => task.status === "uncompleted"));
+
     if (editingTask) {
       setTaskInput(editingTask.name);
     }
-  }, [editingTask]);
+  }, [tasks, editingTask]);
 
   async function handleTask(event) {
     event.preventDefault();
@@ -50,7 +53,7 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10">
+    <div className="mx-auto xl:max-w-[1200px] max-w-[600px] bg-[#DADDD8] text-3xl my-10 rounded-2xl">
       <div className="p-15">
         <h1 className="text-center font-bold">To-Do List App</h1>
 
@@ -115,29 +118,19 @@ export default function Home() {
           </fieldset>
         </form>
 
-        {uncompletedTask.length > 0 && (
+        {uncompletedTasks?.length > 0 && (
           <TaskContainer name="In Progress Tasks">
-            {tasks.map(
-              (task) =>
-                task.status === "uncompleted" && (
-                  <UncompletedTasks
-                    name={task.name}
-                    key={task.id}
-                    id={task.id}
-                  />
-                )
-            )}
+            {uncompletedTasks.map((task) => (
+              <UncompletedTasks name={task.name} key={task.id} id={task.id} />
+            ))}
           </TaskContainer>
         )}
 
-        {completedTask.length > 0 && (
+        {completedTasks?.length > 0 && (
           <TaskContainer name="Completed Tasks">
-            {tasks.map(
-              (task) =>
-                task.status === "completed" && (
-                  <CompletedTasks name={task.name} key={task.id} id={task.id} />
-                )
-            )}
+            {completedTasks.map((task) => (
+              <CompletedTasks name={task.name} key={task.id} id={task.id} />
+            ))}
           </TaskContainer>
         )}
       </div>

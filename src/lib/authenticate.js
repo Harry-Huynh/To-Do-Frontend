@@ -6,7 +6,7 @@ function setToken(token) {
 
 export function getToken() {
   try {
-    localStorage.getItem("access_token");
+    return localStorage.getItem("access_token");
   } catch (error) {
     return null;
   }
@@ -62,7 +62,7 @@ export async function registerUser(userName, password, password2) {
     },
   });
 
-  const data = res.json();
+  const data = await res.json();
 
   if (res.status === 200) {
     return true;

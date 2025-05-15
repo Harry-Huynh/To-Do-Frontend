@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { IoLogOut } from "react-icons/io5";
 
 export default function MainNav() {
   const [shown, setShown] = useState(true);
