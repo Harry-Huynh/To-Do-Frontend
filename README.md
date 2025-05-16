@@ -1,40 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 📝 To-Do App
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15.3.2-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19.0.0-blue?logo=react)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styled-38B2AC?logo=tailwindcss)
+![Jotai](https://img.shields.io/badge/Jotai-State-green)
+![License](https://img.shields.io/badge/ISC-License-lightgrey)
+![Deploy-Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)
 
-First, run the development server:
+A simple and responsive to-do app built with **Next.js**, **React**, and **Tailwind CSS**. This application allows users to manage tasks and includes user authentication and route protection using **JWT tokens**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔗 Project Links
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- 🖥️ Backend Repository: [To-Do Backend (Node.js)](https://github.com/Harry-Huynh/To-Do-Backend)
+- 🌐 Live Website: [Visit the App](https://to-do-app-frontend-tawny-delta.vercel.app/)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 📄 License
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> Copyright (c) 2025 Hoang Phuc Huynh  
+> This project is licensed under the ISC License.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- 🔐 **Authentication & Authorization** using JWT tokens
+- 🚫 **Protected Routes** for authenticated users only
+- 🌐 **Public Routes** for login and registration
+- 📝 **Task Management**:
+  - Create new tasks
+  - Read and display existing tasks
+  - Update tasks
+  - Delete tasks
+- 📱 **Responsive Design** using Tailwind CSS
+- ✂️ **Text Truncation** to prevent overflow in UI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📦 Dependencies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `jotai`: For global state management
+- `next/router`: For route navigation and route change events
+- Custom modules:
+  - `@/lib/authenticate`: Contains all logic related to user authentication (e.g., login, logout, checking if a user is authenticated).
+  - `@/lib/userData`: Handles all task-related logic (e.g., fetching, creating, updating, and deleting tasks).
+  - `@/store`: Contains `taskAtom` for state management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+---
+
+## 🌐 API Endpoints
+
+The app communicates with the following API endpoints:
+
+| Endpoint    | Description                           |
+| ----------- | ------------------------------------- |
+| `/tasks`    | Handles CRUD operations for tasks     |
+| `/login`    | Authenticates users and issues tokens |
+| `/register` | Registers new user accounts           |
+
+---
+
+## 🧩 Key Components & Pages
+
+- **`RouteGuard`**: Protects routes by checking user authentication
+- **`TaskContainer`**: Displays the list of tasks
+- **`Task`**: Renders individual task items
+- **`Login` Page**: Manages user login
+- **`Register` Page**: Handles user sign-up
+
+## 🛡️ Route Protection Flow
+
+1. `RouteGuard` runs `isAuthenticated()` to verify access.
+2. If unauthorized and accessing a protected route, the user is redirected to `/login`.
+3. If authenticated, `getTasks()` is called to load user data.
+4. Route changes are tracked using `router.events` to re-verify auth status dynamically.
+
+---
+
+## 📌 Notes
+
+- Ensure JWT tokens are securely stored (e.g., in `localStorage`).
+- Data loading only occurs **after** authentication is confirmed.
+- Reloading the page reloads the auth state and tasks due to initial `useEffect`.
+
+---
