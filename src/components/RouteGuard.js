@@ -2,7 +2,7 @@ import { taskAtom } from "@/store";
 import { useAtom } from "jotai";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { isAuthenticated } from "@/lib/authenticate";
+import { isAuthenticated, getToken, removeToken } from "@/lib/authenticate";
 import { getTasks } from "@/lib/userData";
 
 const PUBLIC_PATH = ["/login", "/register", "/_error"];
@@ -24,6 +24,36 @@ export default function RouteGuard({ children }) {
     router.events.on("routeChangeComplete", authCheck);
 
     return () => router.events.off("routeChangeComplete", authCheck);
+  }, []);
+
+  useEffect(() => {
+    const token = getToken();
+    let timer;
+
+    if (token) {
+      try {
+        const { exp } = JSON.parse(atob(token.split(".")[1]));
+        const timeout = exp * 1000 - Date.now();
+
+        if (timeout > 0) {
+          timer = setTimeout(() => {
+            removeToken();
+            router.push("/login");
+          }, timeout);
+          console.log(timeout);
+        } else {
+          removeToken();
+          router.push("/login");
+        }
+      } catch {
+        removeToken();
+        router.push("/login");
+      }
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   function authCheck(path) {
