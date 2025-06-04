@@ -11,17 +11,30 @@ A simple and responsive to-do app built with **Next.js**, **React**, and **Tailw
 
 ---
 
-## 🔗 Project Links
-
-- 🖥️ Backend Repository: [To-Do Backend (Node.js)](https://github.com/Harry-Huynh/To-Do-Backend)
-- 🌐 Live Website: [Visit the App](https://to-do-app-frontend-tawny-delta.vercel.app/)
-
----
-
 ## 📄 License
 
 > Copyright (c) 2025 Hoang Phuc Huynh  
 > This project is licensed under the ISC License.
+
+---
+
+## 📚 Table of Contents
+
+- [🔗 Project Links](#-project-links)
+- [🚀 Features](#-features)
+- [📦 Dependencies](#-dependencies)
+- [🌐 API Endpoints](#-api-endpoints)
+- [🧩 Key Components \& Pages](#-key-components--pages)
+- [🛡️ Route Protection Flow](#️-route-protection-flow)
+- [📌 Notes](#-notes)
+
+
+---
+
+## 🔗 Project Links
+
+- 🖥️ Backend Repository: [To-Do Backend (Node.js)](https://github.com/Harry-Huynh/To-Do-Backend)
+- 🌐 Live Website: [Visit the App](https://to-do-app-frontend-tawny-delta.vercel.app/)
 
 ---
 
