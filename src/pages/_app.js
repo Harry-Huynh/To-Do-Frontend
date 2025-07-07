@@ -1,6 +1,13 @@
+import "@syncfusion/ej2-base/styles/material.css";
+import "@syncfusion/ej2-buttons/styles/material.css";
+import "@syncfusion/ej2-layouts/styles/material.css";
+import "@syncfusion/ej2-dropdowns/styles/material.css";
+import "@syncfusion/ej2-inputs/styles/material.css";
+import "@syncfusion/ej2-navigations/styles/material.css";
+import "@syncfusion/ej2-popups/styles/material.css";
+import "@syncfusion/ej2-react-kanban/styles/material.css";
 import "@/styles/globals.css";
 import Head from "next/head";
-import { SWRConfig } from "swr";
 import Layout from "@/components/Layout";
 import RouteGuard from "@/components/RouteGuard";
 import { registerLicense } from "@syncfusion/ej2-base";
@@ -16,27 +23,7 @@ export default function App({ Component, pageProps }) {
 
       <RouteGuard>
         <Layout>
-          <SWRConfig
-            value={{
-              fetcher: async (url) => {
-                const res = await fetch(url);
-
-                if (!res.ok) {
-                  const error = new Error(
-                    "An error occurred while fetching the data."
-                  );
-
-                  error.info = await res.json();
-                  error.status = res.status;
-                  throw error;
-                }
-
-                return res.json();
-              },
-            }}
-          >
-            <Component {...pageProps} />
-          </SWRConfig>
+          <Component {...pageProps} />
         </Layout>
       </RouteGuard>
     </>

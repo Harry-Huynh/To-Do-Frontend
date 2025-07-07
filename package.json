@@ -12,12 +12,11 @@
     "@syncfusion/ej2-base": "^30.1.37",
     "@syncfusion/ej2-react-kanban": "^30.1.37",
     "jotai": "^2.12.4",
-    "next": "15.3.2",
+    "next": "^15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
-    "react-icons": "^5.5.0",
-    "swr": "^2.3.3"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
