@@ -46,12 +46,10 @@ export default function MainNav() {
     <nav
       className={`w-full fixed top-0 left-0 transition-all duration-300 ${
         shown ? "translate-y-0" : "-translate-y-full"
-      } z-30 ${
-        backgroundTransparent ? "bg-transparent" : "bg-[#a9b2ac]"
-      } border-none px-0`}
+      } z-30 bg-transparent px-0`}
     >
       <div className="navbar py-0">
-        <div className="navbar-start relative">
+        <div className="navbar-start  relative">
           {!token && (
             <div className="dropdown" onClick={() => setExpanded(!expanded)}>
               <div
@@ -113,16 +111,16 @@ export default function MainNav() {
             alt="Logo"
             width={35}
             height={35}
-            className="my-auto lg:absolute lg:top-1/2 lg:left-1/18 lg:-translate-x-1/2 lg:-translate-y-1/2"
+            className="my-auto lg:absolute lg:top-1/2 lg:left-1/12 lg:-translate-x-1/2 lg:-translate-y-1/2"
           />
         </div>
 
         {token && (
           <div className="navbar-end">
             <div className="flex">
-              <ul className="menu menu-horizontal px-1 text-xl">
+              <ul className="menu menu-horizontal px-1 text-lg font-semibold">
                 <li
-                  className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1"
+                  className="transition-all duration-300 bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1 border-3 border-black hover:text-white"
                   onClick={handleLogout}
                 >
                   <span>
@@ -136,13 +134,13 @@ export default function MainNav() {
         )}
 
         {!token && (
-          <div className="navbar-end">
-            <div className="hidden lg:flex">
-              <ul className="menu menu-horizontal px-1 text-xl">
-                <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+          <div className="navbar-end px-10">
+            <div className="hidden lg:flex text-[#1f2937]">
+              <ul className="menu menu-horizontal px-1 text-lg font-semibold">
+                <li className="transition-all duration-300 bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-2 border-3 border-black hover:text-white">
                   <Link href="/register">Register</Link>
                 </li>
-                <li className="transition-all duration-300 bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-1">
+                <li className="transition-all duration-300 bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] rounded-xl m-2 border-3 border-black hover:text-white">
                   <Link href="/login">Sign In</Link>
                 </li>
               </ul>

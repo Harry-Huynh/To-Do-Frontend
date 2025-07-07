@@ -40,7 +40,6 @@ export default function RouteGuard({ children }) {
             removeToken();
             router.push("/login");
           }, timeout);
-          console.log(timeout);
         } else {
           removeToken();
           router.push("/login");
