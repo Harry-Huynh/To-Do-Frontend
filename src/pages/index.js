@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import { useAtom } from "jotai";
 import { taskAtom } from "@/store";
 import { useState, useEffect } from "react";
-import { updateTask, addTask } from "@/lib/userData";
+import { updateTask, addTask, deleteTask } from "@/lib/userData";
 import {
   ColumnDirective,
   ColumnsDirective,
@@ -55,6 +55,11 @@ export default function Home() {
 
   const onDrag = async (args) => {
     const task = args.data[0];
+    await updateTask(task._id, task.name, task.status, task.edit);
+  };
+
+  const dialogClose = async (args) => {
+    const task = args.data;
     await updateTask(task._id, task.name, task.status, task.edit);
   };
 
@@ -172,6 +177,7 @@ export default function Home() {
           }}
           cssClass="!mt-4"
           dragStop={onDrag}
+          dialogClose={dialogClose}
         >
           <ColumnsDirective>
             <ColumnDirective headerText="To Do" keyField="uncompleted" />
