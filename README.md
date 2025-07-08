@@ -21,7 +21,6 @@ A simple and responsive To-Do App built with **Next.js**, **React**, and **Tailw
 ## 📚 Table of Contents
 
 - [📝 To-Do App](#-to-do-app)
-  - [📄 License](#-license)
   - [🔗 Project Links](#-project-links)
   - [🚀 Features](#-features)
   - [📦 Dependencies](#-dependencies)
@@ -95,7 +94,7 @@ The app communicates with the following API endpoints:
 
 - 📦 Columns represent task states (e.g., To-Do, In Progress, Done)
 - 📌 Tasks are grouped and rendered based on their status
-- 🖱️ Tasks can be updated via UI interactions (e.g., dropdown or drag-and-drop, if implemented)
+- 🖱️ Tasks can be updated via UI interactions (e.g., drag-and-drop or double-click on card to modify the status of tasks)
 - 🎨 Tailwind CSS ensures responsiveness and clean design
 
 ## 🛡️ Route Protection Flow
