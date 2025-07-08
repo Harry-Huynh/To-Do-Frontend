@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/ISC-License-lightgrey)
 ![Deploy-Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)
 
-A simple and responsive to-do app built with **Next.js**, **React**, and **Tailwind CSS**. This application allows users to manage tasks and includes user authentication and route protection using **JWT tokens**.
+A simple and responsive To-Do App built with **Next.js**, **React**, and **Tailwind CSS**. It features **JWT-based** authentication, route protection, and a modern **Kanban board** interface for task management.
 
 ---
 
@@ -20,14 +20,16 @@ A simple and responsive to-do app built with **Next.js**, **React**, and **Tailw
 
 ## 📚 Table of Contents
 
-- [🔗 Project Links](#-project-links)
-- [🚀 Features](#-features)
-- [📦 Dependencies](#-dependencies)
-- [🌐 API Endpoints](#-api-endpoints)
-- [🧩 Key Components \& Pages](#-key-components--pages)
-- [🛡️ Route Protection Flow](#️-route-protection-flow)
-- [📌 Notes](#-notes)
-
+- [📝 To-Do App](#-to-do-app)
+  - [📄 License](#-license)
+  - [🔗 Project Links](#-project-links)
+  - [🚀 Features](#-features)
+  - [📦 Dependencies](#-dependencies)
+  - [🌐 API Endpoints](#-api-endpoints)
+  - [🧩 Key Components \& Pages](#-key-components--pages)
+  - [🧱 Kanban Board Overview](#-kanban-board-overview)
+  - [🛡️ Route Protection Flow](#️-route-protection-flow)
+  - [📌 Notes](#-notes)
 
 ---
 
@@ -49,6 +51,7 @@ A simple and responsive to-do app built with **Next.js**, **React**, and **Tailw
   - Update tasks
   - Delete tasks
 - 📱 **Responsive Design** using Tailwind CSS
+- 🧱 **Kanban View** for task organization
 - ✂️ **Text Truncation** to prevent overflow in UI
 
 ---
@@ -83,6 +86,17 @@ The app communicates with the following API endpoints:
 - **`Task`**: Renders individual task items
 - **`Login` Page**: Manages user login
 - **`Register` Page**: Handles user sign-up
+
+## 🧱 Kanban Board Overview
+
+**The task list is presented in a Kanban-style board for intuitive task tracking and progress visualization.**
+
+**Features:**
+
+- 📦 Columns represent task states (e.g., To-Do, In Progress, Done)
+- 📌 Tasks are grouped and rendered based on their status
+- 🖱️ Tasks can be updated via UI interactions (e.g., dropdown or drag-and-drop, if implemented)
+- 🎨 Tailwind CSS ensures responsiveness and clean design
 
 ## 🛡️ Route Protection Flow
 

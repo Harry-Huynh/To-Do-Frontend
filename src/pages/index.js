@@ -82,10 +82,14 @@ export default function Home() {
     setTasks(await deleteTask(id));
   }
 
-  const cardTemplate = ({ name, _id }) => {
+  const cardTemplate = ({ name, _id, status }) => {
     return (
       <div className="flex flex-row flex-wrap justify-between items-center gap-2">
-        <div className="grow font-semibold lg:text-lg text-base pl-2 pr-2 text-ellipsis overflow-hidden">
+        <div
+          className={`grow font-semibold lg:text-lg text-base pl-2 pr-2 text-ellipsis overflow-hidden ${
+            status === "completed" && "line-through opacity-70"
+          }`}
+        >
           {name}
         </div>
 
